@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Gmail フィルタ テンプレート
+  ==========================
+  インポート方法:
+    Gmail → 設定(歯車)→ すべての設定を表示 → フィルタとブロック中のアドレス
+    → フィルタをインポート → このファイルを選択
+
+  ※ インポート前に、value の中身を自分の状況に合わせて編集してください。
+  ※ 最初は shouldTrash(削除)ではなく label(ラベル付け)で様子見するのが安全です。
+-->
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:apps="http://schemas.google.com/apps/2006">
+  <title>Mail Filters</title>
+
+  <!-- 例1: 特定ドメインからのメールをゴミ箱へ(ドメインは自分がブロックしたいものに書き換える) -->
+  <entry>
+    <category term="filter"/>
+    <title>Mail Filter</title>
+    <content/>
+    <apps:property name="from" value="*@example-spam1.com OR *@example-spam2.net"/>
+    <apps:property name="shouldTrash" value="true"/>
+    <apps:property name="shouldNeverMarkAsImportant" value="true"/>
+  </entry>
+
+  <!-- 例2: 日本語スパムの定番キーワード(件名)に「要確認スパム」ラベルを付けて受信トレイからスキップ -->
+  <entry>
+    <category term="filter"/>
+    <title>Mail Filter</title>
+    <content/>
+    <apps:property name="subject" value="当選 OR 高収入 OR 副業 OR 未払い OR アカウント停止"/>
+    <apps:property name="label" value="要確認スパム"/>
+    <apps:property name="shouldArchive" value="true"/>
+    <apps:property name="shouldNeverMarkAsImportant" value="true"/>
+  </entry>
+
+  <!-- 例3: 英語スパムの定番キーワード(本文含む)をゴミ箱へ -->
+  <entry>
+    <category term="filter"/>
+    <title>Mail Filter</title>
+    <content/>
+    <apps:property name="hasTheWord" value="viagra OR casino OR lottery winner OR crypto profit"/>
+    <apps:property name="shouldTrash" value="true"/>
+    <apps:property name="shouldNeverMarkAsImportant" value="true"/>
+  </entry>
+
+  <!-- 例4: 自分のアドレスが宛先(To/Cc)に入っていないメール(BCC一斉送信スパム)にラベル付け
+       ※ メーリングリスト購読者は誤爆しやすいので、まずはラベルで様子見推奨 -->
+  <entry>
+    <category term="filter"/>
+    <title>Mail Filter</title>
+    <content/>
+    <apps:property name="hasTheWord" value="-{to:avalue.create@gmail.com cc:avalue.create@gmail.com list:*}"/>
+    <apps:property name="label" value="要確認スパム"/>
+    <apps:property name="shouldNeverMarkAsImportant" value="true"/>
+  </entry>
+
+</feed>
